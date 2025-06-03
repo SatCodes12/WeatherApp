@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Weather App</title>
+    <link rel="stylesheet" href="/style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <h1>Weather App</h1>
+
+        <form id="myForm" method="post">
+            <input type="text" id="city" name="city" placeholder="Enter city (eg New York)" required />
+            <br>
+            <input id="submit" type="submit" value="Search"/>
+        </form>
+
+        <% if (locals.error) { %>
+            <div class="error-message" style="color: red; margin-top: 20px;">
+                <strong>Error:</strong> <%= error %>
+            </div>
+        <% } %>
+
+        <% if (locals.weatherData && locals.timeData) { 
+            const iconUrl = `https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`;
+            %>
+
+            <div class="weather-result">
+                <h2>Weather in <%= weatherData.name %>, <%= weatherData.sys.country %>
+                </h2>
+                <img class="weather-icon" src="<%= iconUrl %>" alt="Weather Icon" />
+                <div class="info"><strong>Description:</strong>
+                    <%= weatherData.weather[0].description %>
+                </div>
+                <div class="info"><strong>Temperature:</strong>
+                    <%= weatherData.main.temp %>°C
+                </div>
+                <div class="info"><strong>Date:</strong>
+                    <%= timeData.date %>
+                </div>
+                <div class="info"><strong>Current Time:</strong>
+                    <%= timeData.currentTime %>
+                </div>
+                <div class="info"><strong>Sunrise:</strong>
+                    <%= timeData.sunrise %>
+                </div>
+                <div class="info"><strong>Sunset:</strong>
+                    <%= timeData.sunset %>
+                </div>
+                <div class="info"><strong>Time Zone:</strong>
+                    <%= timeData.timeZone %>
+                </div>
+            </div>
+        <% } %>
+    </div>
+</body>
+
+</html>
